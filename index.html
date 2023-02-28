@@ -15,86 +15,86 @@
 
 <body>
 
-    <div>
-        <h1>
-            Testing Page
-        </h1>
-        <div class="commonPadding">
-            <h2>1. Opening PWA from PWA</h2>
-            <h3>
-                Selected window open option: windowOpenOption and PWA URL:" "
-                pwaUrl
-            </h3>
-            <h4>Available option: _blank, _parent, _self, _top</h4>
-            <input type="text" placeholder="Enter window option to open URL " name="windowOpenOption" />
-            <input type="text" placeholder="Enter PWA URL" name="pwaUrl" />
-            <h3>Current Selection for PWA</h3>
-            <button>
-                Open PWA
-            </button>
-            <a href=pwaUrl target=windowOpenOption>
-                `a` Tag to Open PWA
-            </a>
-        </div>
-        <div class="commonPadding">
-            <h2>
-                2. Button to push out to browser like (Safari, Chrome, Edge)
-            </h2>
-            <input type="text" placeholder="Enter browser" name="browser" />
-            <input type="text" placeholder="Enter web URL" name="webUrl" />
-            <button>
-                Open in browser
-            </button>
-            <a href="mailto:new@gmail.com">Click me</a>
-        </div>
-        <div class="commonPadding">
-            <h2>3. Open native-app with URI</h2>
-            <input type="text" placeholder="Enter Native App URI for test" name="nativeAppUri" />
-            <button onClick=updateNativeAppUri data-testid="nativeUriTestBtn">
-                Test native app URI
-            </button>
-
-            <h3>used URI: nativeApp</h3>
-            <button>
-                Open nativeApp as Native-App
-            </button>
-        </div>
-        <div class="commonPadding">
-            <h2>4. Open SharePoint URL inside PWA (iFrame)</h2>
-            <input type="text" placeholder="Enter URL to test in iFrame" name="iframeUrl" />
-            <button>
-                Test native app URI
-            </button>
-            <h3>Testing for iframeInput</h3>
-        </div>
-        <div class="commonPadding">
-            <h2>
-                5. Additional test option; relation attribute current selection" "
-                external
-            </h2>
-            <input type="text" placeholder="Enter rel value" name="rel" />
-            <button>
-                external url link
-            </button>
-            <a href=externalLink rel=external>
-                Enable nbnco
-            </a>
-        </div>
-        <div class="commonPadding">
-            <h2>
-                6. Another test optin; test time out
-            </h2>
-            <a href=externalLink>Enable NBNCO</a>
-        </div>
-        <div class="commonPadding">
-            <h2>
-                7. Redirecting to download if App is not installed
-            </h2>
-            <button data-testid="ifAppInstalledTestBtn" onClick="test();">com.salesforce.fieldservice://; Native
-                App</button>
-        </div>
-        <input type="text" value="" id="appUri" />
+<div>
+    <h1>
+        Testing Page
+    </h1>
+    <div class="commonPadding">
+        <h2>1. Opening PWA from PWA</h2>
+        <h3>
+            Selected window open option: windowOpenOption and PWA URL:" "
+            pwaUrl
+        </h3>
+        <h4>Available option: _blank, _parent, _self, _top</h4>
+        <input type="text" placeholder="Enter window option to open URL " name="windowOpenOption" />
+        <input type="text" placeholder="Enter PWA URL" name="pwaUrl" />
+        <h3>Current Selection for PWA</h3>
+        <button>
+            Open PWA
+        </button>
+        <a href=pwaUrl target=windowOpenOption>
+            `a` Tag to Open PWA
+        </a>
     </div>
+    <div class="commonPadding">
+        <h2>
+            2. Button to push out to browser like (Safari, Chrome, Edge)
+        </h2>
+        <input type="text" placeholder="Enter browser" name="browser" />
+        <input type="text" placeholder="Enter web URL" name="webUrl" />
+        <button>
+            Open in browser
+        </button>
+        <a href="mailto:new@gmail.com">Click me</a>
+    </div>
+    <div class="commonPadding">
+        <h2>3. Open native-app with URI</h2>
+        <input type="text" placeholder="Enter Native App URI for test" name="nativeAppUri" />
+        <button onClick=updateNativeAppUri data-testid="nativeUriTestBtn">
+            Test native app URI
+        </button>
+
+        <h3>used URI: nativeApp</h3>
+        <button>
+            Open nativeApp as Native-App
+        </button>
+    </div>
+    <div class="commonPadding">
+        <h2>4. Open SharePoint URL inside PWA (iFrame)</h2>
+        <input type="text" placeholder="Enter URL to test in iFrame" name="iframeUrl" />
+        <button>
+            Test native app URI
+        </button>
+        <h3>Testing for iframeInput</h3>
+    </div>
+    <div class="commonPadding">
+        <h2>
+            5. Additional test option; relation attribute current selection" "
+            external
+        </h2>
+        <input type="text" placeholder="Enter rel value" name="rel" />
+        <button>
+            external url link
+        </button>
+        <a href=externalLink rel=external>
+            Enable nbnco
+        </a>
+    </div>
+    <div class="commonPadding">
+        <h2>
+            6. Another test optin; test time out
+        </h2>
+        <a href=externalLink>Enable NBNCO</a>
+    </div>
+    <div class="commonPadding">
+        <h2>
+            7. Redirecting to download if App is not installed
+        </h2>
+        <button data-testid="ifAppInstalledTestBtn" onClick="test();">com.salesforce.fieldservice://; Native
+            App</button>
+    </div>
+    <input type="text" value="" id="appUri" />
+</div>
 </body>
 
 <script>
@@ -115,7 +115,6 @@
         // window.location = 'svmxgo://app.com/?screen=xxxxx';
 
         setTimeout(() => {
-            // console.log(document.visibilityState);
             // If we're still here after a (timeout), try native facebook app
             if(+new Date() - clickedDate < timeout*2) {
                 console.log('clicked '+ (+new Date - clickedDate) +' ago- go to FB');
@@ -174,5 +173,4 @@
     }
 
 </script>
-
 </html>
