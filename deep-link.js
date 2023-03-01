@@ -73,7 +73,7 @@ function DeepLinker(options) {
     this.destroy = bindEvents.bind(null, 'remove');
     this.openURL = url => {
         // it can take a while for the dialog to appear
-        var dialogTimeout = 500;
+        var dialogTimeout = 50;
 
         setTimeout(() => {
             console.log('openURL');
@@ -92,6 +92,7 @@ function DeepLinker(options) {
 const linker = new DeepLinker({
     onIgnored: () => {
         console.log('browser failed to respond to the deep link');
+        window.location = "https://www.google.com/";
     },
     onFallback: () => {
         console.log('dialog hidden or user returned to tab');
