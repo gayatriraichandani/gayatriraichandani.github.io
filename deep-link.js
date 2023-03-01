@@ -74,13 +74,16 @@ function DeepLinker(options) {
     this.openURL = url => {
         // it can take a while for the dialog to appear
         var dialogTimeout = 500;
-        console.log('useragent: ', navigator.userAgent);
         setTimeout(() => {
             console.log('openURL');
             console.log('hasFocus: ',hasFocus);
+            console.log('options.onFallback');
             if (hasFocus && options.onIgnored) {
-                console.log('options.onIgnored: ',options.onIgnored);
-                options.onIgnored();
+                if(navigator.userAgent.includes('Chrome')) {
+                    options.onFallback();
+                } else {
+                    options.onIgnored();
+                }
             }
         }, dialogTimeout);
 
@@ -92,10 +95,10 @@ function DeepLinker(options) {
 const linker = new DeepLinker({
     onIgnored: () => {
         console.log('browser failed to respond to the deep link');
-        window.location = "https://www.google.com/";
     },
     onFallback: () => {
         console.log('dialog hidden or user returned to tab');
+        window.location = "https://www.google.com/";
     },
     onReturn: () => {
         console.log('user returned to the page from the native app');
