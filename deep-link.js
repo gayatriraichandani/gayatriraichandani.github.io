@@ -8,21 +8,23 @@ function DeepLinker(options) {
 
     // window is blurred when dialogs are shown
     function onBlur() {
-        console.log('blurred');
+        console.log('BLURRED');
         hasFocus = false;
     };
 
     // document is hidden when native app is shown or browser is backgrounded
     function onVisibilityChange(e) {
+        console.log('HIDDEN: ', e.target.visibilityState);
         if (e.target.visibilityState === 'hidden') {
-            console.log('hidden');
             didHide = true;
+        } else {
+            didHide = false;
         }
     };
 
     // window is focused when dialogs are hidden, or browser comes into view
     function onFocus() {
-        console.log('in onfocus');
+        console.log('FOCUSSED');
         if (didHide) {
             console.log('onfocus() didHide: ', didHide);
             if (options.onReturn) {
@@ -36,7 +38,6 @@ function DeepLinker(options) {
             // iOS Safari 13.3+
             if (!hasFocus && options.onFallback) {
                 console.log('onfocus() hasFocus: ', hasFocus);
-                console.log('onfocus() options.onFallback: ', options.onFallback);
                 // wait for app switch transition to fully complete - only then is
                 // 'visibilitychange' fired
                 setTimeout(function() {
@@ -99,7 +100,9 @@ var linker = new DeepLinker({
     },
     onFallback: function() {
         console.log('dialog hidden or user returned to tab');
-        window.location = "https://www.google.com/";
+        setTimeout(() => {
+            window.location = "https://www.google.com/";
+        }, 1000);
     },
     onReturn: function() {
         console.log('user returned to the page from the native app');
