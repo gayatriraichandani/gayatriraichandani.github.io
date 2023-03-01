@@ -61,7 +61,7 @@ function DeepLinker(options) {
             [window, 'blur', onBlur],
             [document, 'visibilitychange', onVisibilityChange],
             [window, 'focus', onFocus],
-        ].forEach(function(conf) {
+        ].forEach(conf => {
             conf[0][mode + 'EventListener'](conf[1], conf[2]);
         });
     }
@@ -71,11 +71,11 @@ function DeepLinker(options) {
 
     // expose public API
     this.destroy = bindEvents.bind(null, 'remove');
-    this.openURL = function(url) {
+    this.openURL = url => {
         // it can take a while for the dialog to appear
         var dialogTimeout = 500;
 
-        setTimeout(function() {
+        setTimeout(() => {
             console.log('openURL');
             if (hasFocus && options.onIgnored) {
                 console.log('hasFocus: ',hasFocus);
@@ -88,25 +88,15 @@ function DeepLinker(options) {
     };
 }
 
-/* usage */
 
-var url = 'fb://profile/240995729348595';
-var badURL = 'lksadjgajsdhfaskd://slkdfs';
-
-var linker = new DeepLinker({
-    onIgnored: function() {
+const linker = new DeepLinker({
+    onIgnored: () => {
         console.log('browser failed to respond to the deep link');
-        window.location = "https://www.google.com/";
     },
-    onFallback: function() {
+    onFallback: () => {
         console.log('dialog hidden or user returned to tab');
-        setTimeout(() => {
-            window.location = "https://www.google.com/";
-        }, 1000);
     },
-    onReturn: function() {
+    onReturn: () => {
         console.log('user returned to the page from the native app');
     },
 });
-
-// linker.openURL(url);
