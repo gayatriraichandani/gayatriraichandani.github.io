@@ -15,162 +15,20 @@
 
 <body>
 
-<div>
-    <h1>
-        Testing Page
-    </h1>
-    <div class="commonPadding">
-        <h2>1. Opening PWA from PWA</h2>
-        <h3>
-            Selected window open option: windowOpenOption and PWA URL:" "
-            pwaUrl
-        </h3>
-        <h4>Available option: _blank, _parent, _self, _top</h4>
-        <input type="text" placeholder="Enter window option to open URL " name="windowOpenOption" />
-        <input type="text" placeholder="Enter PWA URL" name="pwaUrl" />
-        <h3>Current Selection for PWA</h3>
-        <button>
-            Open PWA
-        </button>
-        <a href=pwaUrl target=windowOpenOption>
-            `a` Tag to Open PWA
-        </a>
-    </div>
-    <div class="commonPadding">
-        <h2>
-            2. Button to push out to browser like (Safari, Chrome, Edge)
-        </h2>
-        <input type="text" placeholder="Enter browser" name="browser" />
-        <input type="text" placeholder="Enter web URL" name="webUrl" />
-        <button>
-            Open in browser
-        </button>
-        <a href="mailto:new@gmail.com">Click me</a>
-    </div>
-    <div class="commonPadding">
-        <h2>3. Open native-app with URI</h2>
-        <input type="text" placeholder="Enter Native App URI for test" name="nativeAppUri" />
-        <button onClick=updateNativeAppUri data-testid="nativeUriTestBtn">
-            Test native app URI
-        </button>
+    <div>
+        <h1>
+            Testing Page
+        </h1>
 
-        <h3>used URI: nativeApp</h3>
-        <button>
-            Open nativeApp as Native-App
-        </button>
+        <div class="commonPadding">
+            <h2>
+                7. Redirecting to download if App is not installed
+            </h2>
+            <button data-testid="ifAppInstalledTestBtn" onClick="linker.openURL(document.getElementById('appUri').value || 'svmxgo://');">com.salesforce.fieldservice://; Native
+                App</button>
+        </div>
+        <input type="text" value="" id="appUri" />
     </div>
-    <div class="commonPadding">
-        <h2>4. Open SharePoint URL inside PWA (iFrame)</h2>
-        <input type="text" placeholder="Enter URL to test in iFrame" name="iframeUrl" />
-        <button>
-            Test native app URI
-        </button>
-        <h3>Testing for iframeInput</h3>
-    </div>
-    <div class="commonPadding">
-        <h2>
-            5. Additional test option; relation attribute current selection" "
-            external
-        </h2>
-        <input type="text" placeholder="Enter rel value" name="rel" />
-        <button>
-            external url link
-        </button>
-        <a href=externalLink rel=external>
-            Enable nbnco
-        </a>
-    </div>
-    <div class="commonPadding">
-        <h2>
-            6. Another test optin; test time out
-        </h2>
-        <a href=externalLink>Enable NBNCO</a>
-    </div>
-    <div class="commonPadding">
-        <h2>
-            7. Redirecting to download if App is not installed
-        </h2>
-        <button data-testid="ifAppInstalledTestBtn" onClick="test();">com.salesforce.fieldservice://; Native
-            App</button>
-    </div>
-    <input type="text" value="" id="appUri" />
-</div>
+
+    <script src="./deep-link-browser.js" referrerpolicy="no-referrer"></script>
 </body>
-
-<script>
-
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/app-uri-test/sw.js')
-            .then(reg => console.log('service worker registered'))
-            .catch(err => console.log('service worker not registered', err))
-    }
-
-    function test() {
-        const customUri = document.getElementById('appUri').value || 'svmxgo://';
-        const appScheme = customUri;
-        const webURL = "https://www.google.com/";
-        const clickedDate = +new Date(), timeout = 100;
-
-        // window.location = customUri;
-        // window.location = 'svmxgo://app.com/?screen=xxxxx';
-
-        setTimeout(() => {
-            // If we're still here after a (timeout), try native facebook app
-            if(+new Date() - clickedDate < timeout*2) {
-                console.log('clicked '+ (+new Date - clickedDate) +' ago- go to FB');
-                window.location = customUri; //try native app
-            } else {
-                console.log('too late to open app');
-                return;
-            }
-
-            // setTimeout(function () {
-            //     // console.log(document.visibilityState);
-            //     // If we're still here after a (timeout), try web
-            //     if (+new Date() - clickedDate < timeout*2) {
-            //         console.log('clicked ' + (+new Date - clickedDate) + ' ago- go to browser');
-            //         window.location = webURL; //try browser
-            //     } else {
-            //         console.log('clicked ' + (+new Date - clickedDate) + ' ago- go to browser');
-            //         console.log('too late to open browser');
-            //     }
-            // }, timeout);
-        }, timeout);
-
-        // window.location = customUri;
-        // const timeout = setTimeout(function () {
-        //     window.location = webURL;
-        // }, 1000); // Wait for 1 second and then redirect to the web version
-        // window.addEventListener('blur', function () {
-        //     clearTimeout(timeout); // Cancel the timeout if the external app was successfully launched
-        // });
-        // let count = 1;
-        // window.addEventListener('focus', function () {
-        //     if (count === 1) {
-        //         alert('check')
-        //         count = 2;
-        //     }
-        // });
-
-        // if (window.matchMedia('(display-mode: standalone)').matches) {
-        // window.open(customUri, '_self', 'noopener, noreferrer');
-
-        // // Wait for a short period of time and check if the app was opened
-        // setTimeout(function () {
-        //     alert(document.hasFocus())
-        //     alert(window.location.href)
-        //     // If the app was not opened, redirect the user to the app store or web URL
-        //     // Testing
-        //     // if (document.hidden || document.webkitHidden) {
-        //     if (document.hasFocus()) {
-        //         window.open(webURL, '_self', 'noopener, noreferrer');
-        //     }
-        // }, 10000);
-        // }
-        // else {
-        //     window.open(customUri, '_blank', 'noopener, noreferrer');
-        // }
-    }
-
-</script>
-</html>
