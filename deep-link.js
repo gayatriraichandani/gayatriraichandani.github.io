@@ -73,12 +73,12 @@ function DeepLinker(options) {
     this.destroy = bindEvents.bind(null, 'remove');
     this.openURL = url => {
         // it can take a while for the dialog to appear
-        var dialogTimeout = 50;
-
+        var dialogTimeout = 500;
+        console.log('useragent: ', navigator.userAgent);
         setTimeout(() => {
             console.log('openURL');
+            console.log('hasFocus: ',hasFocus);
             if (hasFocus && options.onIgnored) {
-                console.log('hasFocus: ',hasFocus);
                 console.log('options.onIgnored: ',options.onIgnored);
                 options.onIgnored();
             }
