@@ -22,25 +22,28 @@ function DeepLinker(options) {
 
     // window is focused when dialogs are hidden, or browser comes into view
     function onFocus() {
+        console.log('in onfocus');
         if (didHide) {
-            console.log('didHide');
+            console.log('onfocus() didHide: ', didHide);
             if (options.onReturn) {
                 options.onReturn();
             }
 
             didHide = false; // reset
         } else {
-            console.log('didHide false');
+            console.log('onfocus() didHide: ', didHide);
             // ignore duplicate focus event when returning from native app on
             // iOS Safari 13.3+
             if (!hasFocus && options.onFallback) {
-                console.log('i am here');
+                console.log('onfocus() hasFocus: ', hasFocus);
+                console.log('onfocus() options.onFallback: ', options.onFallback);
                 // wait for app switch transition to fully complete - only then is
                 // 'visibilitychange' fired
                 setTimeout(function() {
-                    console.log('now here');
+                    console.log('onfocus() settimeout');
                     // if browser was not hidden, the deep link failed
                     if (!didHide) {
+                        console.log('onfocus() didHide:', didHide);
                         options.onFallback();
                     }
                 }, 1000);
@@ -96,6 +99,7 @@ var linker = new DeepLinker({
     },
     onFallback: function() {
         console.log('dialog hidden or user returned to tab');
+        window.location = "https://www.google.com/";
     },
     onReturn: function() {
         console.log('user returned to the page from the native app');
