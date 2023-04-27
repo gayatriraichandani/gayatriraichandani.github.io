@@ -2,6 +2,10 @@
 <html>
 
 <head>
+    <link rel="manifest" href="./manifest.json">
+    <script src="./sw.js" referrerpolicy="no-referrer"></script>
+    <!-- PWA -->
+    <link rel="manifest" href="./manifest.json">
     <style>
         .commonPadding {
             padding-left: 10px;
@@ -63,7 +67,7 @@
         </button>
         <h3>Testing for iframeInput</h3>
     </div>
-    <!-- <div class="commonPadding">
+    <div class="commonPadding">
         <h2>
             5. Additional test option; relation attribute current selection" "
             external
@@ -81,48 +85,19 @@
             6. Another test optin; test time out
         </h2>
         <a href=externalLink>Enable NBNCO</a>
-    </div> -->
-    <!-- <div class="commonPadding">
+    </div>
+    <div class="commonPadding">
         <h2>
             7. Redirecting to download if App is not installed
         </h2>
         <button data-testid="ifAppInstalledTestBtn" onClick="test();">com.salesforce.fieldservice://; Native
             App</button>
     </div>
-    <input type="text" value="" id="appUri" /> -->
-
-    <button id="my-link">Test Link</button>
+    <input type="text" value="" id="appUri" />
 </div>
 </body>
 
 <script>
-    var linkElement = document.getEId('my-link');
-
-    // Add touchstart event listener
-    linkElement.addEventListener('touchstart', function (event) {
-
-    // Prevent the default link behavior
-    event.preventDefault();
-
-    // Set a timeout function to show the description after 500ms
-    this.timeoutId = setTimeout(function () {
-      alert('Long Pressed');
-    }, 500);
-  });
-
-
-  // Add touchend event listener
-  linkElement.addEventListener('touchend', function (event) {
-    // Prevent the default link behavior
-    event.preventDefault();
-
-    // Clear the timeout if it has not been triggered yet
-    clearTimeout(this.timeoutId);
-    alert('Short Pressed')
-
-    // Trigger the link behavior
-    window.open(this.href, '_blank');
-});
 
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/app-uri-test/sw.js')
@@ -141,9 +116,22 @@
 
         setTimeout(() => {
             // If we're still here after a (timeout), try native facebook app
-            if(+new Date() - clickedDate < timeout*2) {
+            if(+new Date() - clickedDate < timeout) {
                 console.log('clicked '+ (+new Date - clickedDate) +' ago- go to FB');
                 window.location = customUri; //try native app
+
+                setTimeout(function () {
+                    console.log(document.visibilityState);
+                    // If we're still here after a (timeout), try web
+                    if (+new Date() - clickedDate < timeout*2) {
+                        console.log('clicked ' + (+new Date - clickedDate) + ' ago- go to browser');
+                        window.location = webURL; //try browser
+                    } else {
+                        console.log('clicked ' + (+new Date - clickedDate) + ' ago- go to browser');
+                        console.log('too late to open browser');
+                        return;
+                    }
+                }, timeout);
             } else {
                 console.log('too late to open app');
                 return;
