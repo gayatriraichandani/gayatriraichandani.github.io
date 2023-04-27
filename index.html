@@ -97,16 +97,18 @@
 
 <script>
     var linkElement = document.getElementById('my-link');
+    var call = true;
 
     // Add touchstart event listener
     linkElement.addEventListener('touchstart', function (event) {
-
+    call = true;
     // Prevent the default link behavior
     event.preventDefault();
 
     // Set a timeout function to show the description after 500ms
     this.timeoutId = setTimeout(function () {
       alert('Long Pressed');
+      call = false;
     }, 500);
   });
 
@@ -118,36 +120,39 @@
 
     // Clear the timeout if it has not been triggered yet
     clearTimeout(this.timeoutId);
-    alert('Short Pressed')
+    if(call) {
+        alert('Short Pressed')
+        // Trigger the link behavior
+        window.open(this.href, '_blank');
+    }
+});
 
+    // Add touchstart event listener
+    linkElement.addEventListener('mouseenter', function (event) {
+    call = true;
+    // Prevent the default link behavior
+    event.preventDefault();
+
+    // Set a timeout function to show the description after 500ms
+    this.timeoutId = setTimeout(function () {
+        alert('Long Pressed mouse');
+        call = false;
+        }, 500);
+    });
+
+
+    // Add touchend event listener
+    linkElement.addEventListener('mouseleave', function (event) {
+    // Prevent the default link behavior
+    event.preventDefault();
+
+    // Clear the timeout if it has not been triggered yet
+    clearTimeout(this.timeoutId);
+    if(call) {
+        alert('Short Pressed mouse leave')
     // Trigger the link behavior
     window.open(this.href, '_blank');
-});
-
-// Add touchstart event listener
-linkElement.addEventListener('mouseenter', function (event) {
-
-// Prevent the default link behavior
-event.preventDefault();
-
-// Set a timeout function to show the description after 500ms
-this.timeoutId = setTimeout(function () {
-  alert('Long Pressed mouse');
-}, 500);
-});
-
-
-// Add touchend event listener
-linkElement.addEventListener('mouseleave', function (event) {
-// Prevent the default link behavior
-event.preventDefault();
-
-// Clear the timeout if it has not been triggered yet
-clearTimeout(this.timeoutId);
-alert('Short Pressed mouse leave')
-
-// Trigger the link behavior
-window.open(this.href, '_blank');
+    }
 });
 
     if ('serviceWorker' in navigator) {
