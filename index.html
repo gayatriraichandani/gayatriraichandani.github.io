@@ -124,6 +124,32 @@
     window.open(this.href, '_blank');
 });
 
+// Add touchstart event listener
+linkElement.addEventListener('mouseenter', function (event) {
+
+// Prevent the default link behavior
+event.preventDefault();
+
+// Set a timeout function to show the description after 500ms
+this.timeoutId = setTimeout(function () {
+  alert('Long Pressed mouse');
+}, 500);
+});
+
+
+// Add touchend event listener
+linkElement.addEventListener('mouseleave', function (event) {
+// Prevent the default link behavior
+event.preventDefault();
+
+// Clear the timeout if it has not been triggered yet
+clearTimeout(this.timeoutId);
+alert('Short Pressed mouse leave')
+
+// Trigger the link behavior
+window.open(this.href, '_blank');
+});
+
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/app-uri-test/sw.js')
             .then(reg => console.log('service worker registered'))
